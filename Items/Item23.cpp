@@ -21,6 +21,7 @@ typename remove_reference<T>::type && // 相当于 无引用的T &&move(T &&para
 move(T &&param)
 {
     using ReturnType = typename remove_reference<T>::type &&;
+    // 返回时将传入的通用引用参数变为右值
     return static_cast<ReturnType>(param);
 }
 
