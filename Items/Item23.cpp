@@ -55,10 +55,23 @@ public:
 
 int main()
 {
-    Array b(100000);
-    auto a = std::move(b);
-    cout << a.data_ << endl;
-    cout << b.data_ << endl;
+    // Array b(100000);
+    // auto a = std::move(b);
+    // cout << a.data_ << endl;
+    // cout << b.data_ << endl;
+
+    // 2024-5-6
+    std::string s1 = "10000";
+    std::string s2 = "2";
+    s1 = std::move(s2); // 进行debug寻找
+    // basic_string& operator=(basic_string&& __str)的最后，会进行__str.clear()
+    // 实现如下
+    // void
+    // clear() _GLIBCXX_NOEXCEPT
+    // { _M_set_length(0); }
+    // 相当于清除了原字符串的内容
+
+
     return 0;
 }
 
