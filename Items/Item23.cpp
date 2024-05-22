@@ -63,13 +63,22 @@ int main()
     // 2024-5-6
     std::string s1 = "10000";
     std::string s2 = "2";
-    s1 = std::move(s2); // 进行debug寻找
-    // basic_string& operator=(basic_string&& __str)的最后，会进行__str.clear()
-    // 实现如下
+    s1 = std::move(s2);
+
+    // basic_string& operator=(basic_string&& __str)使用相同的分配器时，会直接转移指针
+    // （在大多数情况下，字符串对象会使用默认分配器 std::allocator，所以 _allocator 是相同的。）
+    // if (__equal_allocs)
+    // {
+    //   // __str can reuse our existing storage.
+    //   __data = _M_data();
+    //   __capacity = _M_allocated_capacity;
+    // }
+
+    // 最后，会进行__str.clear()，实现如下
     // void
     // clear() _GLIBCXX_NOEXCEPT
     // { _M_set_length(0); }
-    // 相当于清除了原字符串的内容
+    // 原来的内存被s1占走，s2的长度设为0，并置最后一位为结束符
 
 
     return 0;
